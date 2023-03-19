@@ -24,7 +24,7 @@ public class CustomerApp {
         Scanner sc = new Scanner(System.in);
         Socket socket = null;
         try {
-            socket = new Socket(HOST, PORT_RESERVATION);
+            socket = new Socket(HOST, PORT_EMPRUNT);
             BufferedReader in = new BufferedReader (new InputStreamReader(socket.getInputStream ( )));
             PrintWriter out = new PrintWriter (socket.getOutputStream ( ), true);
 
@@ -38,7 +38,7 @@ public class CustomerApp {
             do {
                 System.out.println(serverMsg);
                 while (!sc.hasNextInt()) {
-                    System.out.println("You4 need to enter a digit !");
+                    System.out.println("You need to enter a digit !");
                     numDocument = sc.nextLine();
                 }
                 numDocument = sc.nextLine();
@@ -53,18 +53,20 @@ public class CustomerApp {
 
             String numAbonne = "";
             serverMsg = in.readLine();
-            do {
-                System.out.println(serverMsg);
-                while (!sc.hasNextInt()) {
-                    System.out.println("You need to enter en digit !");
+            if (!Objects.equals(serverMsg, "ok")){
+                do {
+                    System.out.println(serverMsg);
+                    while (!sc.hasNextInt()) {
+                        System.out.println("You need to enter en digit !");
+                        numAbonne = sc.nextLine();
+                    }
                     numAbonne = sc.nextLine();
-                }
-                numAbonne = sc.nextLine();
 
-                out.println(Integer.parseInt(numAbonne));
-                System.out.println("le lci est: " + numAbonne);
-                serverMsg = in.readLine();
-            } while (!Objects.equals(serverMsg, "ok"));
+                    out.println(Integer.parseInt(numAbonne));
+                    System.out.println("le lci est: " + numAbonne);
+                    serverMsg = in.readLine();
+                } while (!Objects.equals(serverMsg, "ok"));
+            }
             System.out.println("love xingtong");
             System.out.println(in.readLine().replace("##", "\n"));
 
