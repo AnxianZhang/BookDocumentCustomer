@@ -20,7 +20,6 @@ public class CustomerApp {
     }
 
     public static void main(String[] args) throws IOException {
-//        BufferedReader clavier = new BufferedReader(new InputStreamReader(System.in));
         Scanner sc = new Scanner(System.in);
         Socket socket = null;
         try {
@@ -28,10 +27,7 @@ public class CustomerApp {
             BufferedReader in = new BufferedReader (new InputStreamReader(socket.getInputStream ( )));
             PrintWriter out = new PrintWriter (socket.getOutputStream ( ), true);
 
-            System.out.println(in.readLine()); // retrieves the message of the service
-
-            // demande du mun doc
-//            System.out.println();
+            System.out.println(in.readLine()); // retrieves the message of the service which the customer is connected
 
             String numDocument = "";
             String serverMsg = in.readLine();
@@ -41,15 +37,11 @@ public class CustomerApp {
                     System.out.println("You need to enter a digit !");
                     numDocument = sc.nextLine();
                 }
+
                 numDocument = sc.nextLine();
-                System.out.println("ton num est: " + numDocument); // ok
                 out.println(numDocument);
                 serverMsg = in.readLine();
             } while (!Objects.equals(serverMsg, "ok"));
-
-            System.out.println("num doc ok");
-            // fin de mande du num doc ========= OK ==========
-
 
             String numAbonne = "";
             serverMsg = in.readLine();
@@ -60,45 +52,18 @@ public class CustomerApp {
                         System.out.println("You need to enter en digit !");
                         numAbonne = sc.nextLine();
                     }
-                    numAbonne = sc.nextLine();
 
+                    numAbonne = sc.nextLine();
                     out.println(Integer.parseInt(numAbonne));
-                    System.out.println("le lci est: " + numAbonne);
                     serverMsg = in.readLine();
                 } while (!Objects.equals(serverMsg, "ok"));
             }
-            System.out.println("love xingtong");
-            System.out.println(in.readLine().replace("##", "\n"));
-
-//            line = sin.readLine(); // 1ère question
-//            System.out.println(line);
-//            // prompt d'invite à la saisie
-//            System.out.print("->");
-//            line = clavier.readLine();
-//            sout.println(line);
-//            line = sin.readLine(); // 2ème question//ya pbm pour retourService qui a 1 seul qst
-//            System.out.println(line);
-//            // prompt d'invite à la saisie
-//            System.out.print("->");
-//            line = clavier.readLine();
-//            sout.println(line);
-//
-//            System.out.println(sin.readLine()); // réponse finale
+            System.out.println(in.readLine().replace("##", "\n")); // finale msg of the server
 
             socket.close();
         }
-        catch (IOException e) { System.err.println("Fin du service"); }
-        // Refermer dans tous les cas la socket
-        try { if (socket != null) socket.close(); }
-        catch (IOException e2) { ; }
-    }
-
-    private static boolean isNumeric(String string) {
-        try {
-            Integer.parseInt(string);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
+        catch (IOException e) {
+            System.err.println("Problem in customer app");
         }
     }
 }
