@@ -24,8 +24,8 @@ public class CustomerApp {
         Socket socket = null;
         try {
             socket = new Socket(HOST, PORT_EMPRUNT);
-            BufferedReader in = new BufferedReader (new InputStreamReader(socket.getInputStream ( )));
-            PrintWriter out = new PrintWriter (socket.getOutputStream ( ), true);
+            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 
             System.out.println(in.readLine()); // retrieves the message of the service which the customer is connected
 
@@ -45,7 +45,7 @@ public class CustomerApp {
 
             String numAbonne = "";
             serverMsg = in.readLine();
-            if (!Objects.equals(serverMsg, "ok")){
+            if (!Objects.equals(serverMsg, "ok")) {
                 do {
                     System.out.println(serverMsg);
                     while (!sc.hasNextInt()) {
@@ -61,8 +61,7 @@ public class CustomerApp {
             System.out.println(in.readLine().replace("##", "\n")); // finale msg of the server
 
             socket.close();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             System.err.println("Problem in customer app");
         }
     }
