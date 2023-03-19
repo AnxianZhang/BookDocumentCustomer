@@ -24,7 +24,7 @@ public class CustomerApp {
         Scanner sc = new Scanner(System.in);
         Socket socket = null;
         try {
-            socket = new Socket(HOST, PORT_EMPRUNT);
+            socket = new Socket(HOST, PORT_RESERVATION);
             BufferedReader in = new BufferedReader (new InputStreamReader(socket.getInputStream ( )));
             PrintWriter out = new PrintWriter (socket.getOutputStream ( ), true);
 
@@ -38,7 +38,7 @@ public class CustomerApp {
             do {
                 System.out.println(serverMsg);
                 while (!sc.hasNextInt()) {
-                    System.out.println("You need to enter a digit !");
+                    System.out.println("You4 need to enter a digit !");
                     numDocument = sc.nextLine();
                 }
                 numDocument = sc.nextLine();
@@ -66,7 +66,7 @@ public class CustomerApp {
                 serverMsg = in.readLine();
             } while (!Objects.equals(serverMsg, "ok"));
             System.out.println("love xingtong");
-            System.out.println(in.readLine());
+            System.out.println(in.readLine().replace("##", "\n"));
 
 //            line = sin.readLine(); // 1ère question
 //            System.out.println(line);
