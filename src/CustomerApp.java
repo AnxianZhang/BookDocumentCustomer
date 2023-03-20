@@ -7,15 +7,9 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class CustomerApp {
-    private static final int PORT_RESERVATION;
-    private static final int PORT_EMPRUNT;
-    private static final int PORT_RETOURS;
     private static final String HOST;
 
     static {
-        PORT_RESERVATION = 3000;
-        PORT_EMPRUNT = 4000;
-        PORT_RETOURS = 5000;
         HOST = "localhost";
     }
 
@@ -23,7 +17,8 @@ public class CustomerApp {
         Scanner sc = new Scanner(System.in);
         Socket socket = null;
         try {
-            socket = new Socket(HOST, PORT_RETOURS);
+            int port = Integer.parseInt(args[0]);
+            socket = new Socket(HOST, port);
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 
@@ -86,9 +81,10 @@ public class CustomerApp {
 //            }
 
         } catch (IOException e) {
-            System.err.println("Problem in customer app");
+            System.err.println("The number of server is not correct");
         }finally {
-            socket.close();
+            if (socket != null)
+                socket.close();
         }
     }
 }
