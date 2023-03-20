@@ -23,46 +23,72 @@ public class CustomerApp {
         Scanner sc = new Scanner(System.in);
         Socket socket = null;
         try {
-            socket = new Socket(HOST, PORT_EMPRUNT);
+            socket = new Socket(HOST, PORT_RETOURS);
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 
             System.out.println(in.readLine()); // retrieves the message of the service which the customer is connected
 
-            String numDocument = "";
+            String num = "";
             String serverMsg = in.readLine();
+            boolean start = true;
+            boolean isFirstRequest = true;
+
             do {
-                System.out.println(serverMsg);
+                System.out.print(serverMsg.replace("##", "\n").replace("||", " "));
+
                 while (!sc.hasNextInt()) {
-                    System.out.println("You need to enter a digit !");
-                    numDocument = sc.nextLine();
-                }
-
-                numDocument = sc.nextLine();
-                out.println(numDocument);
-                serverMsg = in.readLine();
-            } while (!Objects.equals(serverMsg, "ok"));
-
-            String numAbonne = "";
-            serverMsg = in.readLine();
-            if (!Objects.equals(serverMsg, "ok")) {
-                do {
-                    System.out.println(serverMsg);
-                    while (!sc.hasNextInt()) {
-                        System.out.println("You need to enter en digit !");
-                        numAbonne = sc.nextLine();
+                    num = sc.nextLine();
+                    if (Objects.equals(num, "quit")){
+                        out.println("quit");
+                        start = false;
+                        break;
                     }
-
-                    numAbonne = sc.nextLine();
-                    out.println(Integer.parseInt(numAbonne));
+                    System.out.print("You need to enter a digit: ");
+                }
+                if (start){
+                    num = sc.nextLine();
+                    out.println(num);
                     serverMsg = in.readLine();
-                } while (!Objects.equals(serverMsg, "ok"));
-            }
-            System.out.println(in.readLine().replace("##", "\n")); // finale msg of the server
+                    if (Objects.equals(serverMsg, "ok")){
+                        System.out.println(in.readLine().replace("##", "\n").replace("||", " "));
+                        serverMsg = in.readLine();
+                    }
+                }
+            } while (start);
+            System.out.println("\n++++++++++ You have left the service ++++++++++");
+//            do {
+//                System.out.println(serverMsg);
+//                while (!sc.hasNextInt()) {
+//                    System.out.println("You need to enter a digit !");
+//                    numDocument = sc.nextLine();
+//                }
+//
+//                numDocument = sc.nextLine();
+//                out.println(numDocument);
+//                serverMsg = in.readLine();
+//            } while (!Objects.equals(serverMsg, "ok"));
+//
+//            String numAbonne = "";
+//            serverMsg = in.readLine();
+//            if (!Objects.equals(serverMsg, "ok")) {
+//                do {
+//                    System.out.println(serverMsg);
+//                    while (!sc.hasNextInt()) {
+//                        System.out.println("You need to enter a digit !");
+//                        numAbonne = sc.nextLine();
+//                    }
+//
+//                    numAbonne = sc.nextLine();
+//                    out.println(Integer.parseInt(numAbonne));
+//                    serverMsg = in.readLine();
+//                } while (!Objects.equals(serverMsg, "ok"));
+//            }
 
-            socket.close();
         } catch (IOException e) {
             System.err.println("Problem in customer app");
+        }finally {
+            socket.close();
         }
     }
 }
