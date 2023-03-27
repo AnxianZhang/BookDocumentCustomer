@@ -81,7 +81,7 @@ public class CustomerApp {
 //            }
 
         } catch (IOException e) {
-            System.err.println("The number of server is not correct");
+            System.err.println("The number of server is not correct.\nOr you have been disconnected.");
         }finally {
             if (socket != null)
                 socket.close();
