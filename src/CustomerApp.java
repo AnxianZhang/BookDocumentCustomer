@@ -27,7 +27,6 @@ public class CustomerApp {
             String num = "";
             String serverMsg = in.readLine();
             boolean start = true;
-            boolean isFirstRequest = true;
 
             do {
                 System.out.print(serverMsg.replace("##", "\n").replace("||", " "));
@@ -52,34 +51,6 @@ public class CustomerApp {
                 }
             } while (start);
             System.out.println("\n++++++++++ You have left the service ++++++++++");
-//            do {
-//                System.out.println(serverMsg);
-//                while (!sc.hasNextInt()) {
-//                    System.out.println("You need to enter a digit !");
-//                    numDocument = sc.nextLine();
-//                }
-//
-//                numDocument = sc.nextLine();
-//                out.println(numDocument);
-//                serverMsg = in.readLine();
-//            } while (!Objects.equals(serverMsg, "ok"));
-//
-//            String numAbonne = "";
-//            serverMsg = in.readLine();
-//            if (!Objects.equals(serverMsg, "ok")) {
-//                do {
-//                    System.out.println(serverMsg);
-//                    while (!sc.hasNextInt()) {
-//                        System.out.println("You need to enter a digit !");
-//                        numAbonne = sc.nextLine();
-//                    }
-//
-//                    numAbonne = sc.nextLine();
-//                    out.println(Integer.parseInt(numAbonne));
-//                    serverMsg = in.readLine();
-//                } while (!Objects.equals(serverMsg, "ok"));
-//            }
-
         } catch (IOException e) {
             System.err.println("The number of server is not correct.\nOr you have been disconnected.");
         }finally {
